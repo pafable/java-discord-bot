@@ -22,47 +22,71 @@ public class EventListener extends ListenerAdapter {
     }
 
     // when a user reacts with any emoji the bot will send a message
+//    @Override
+//    public void onMessageReactionAdd(MessageReactionAddEvent event) {
+//        User user = event.getUser();
+//
+//        String emoji = event.getReaction()
+//                .getEmoji()
+//                .getAsReactionCode();
+//
+//        String channelMention = event.getChannel()
+//                .getAsMention();
+//
+//        String jumpLink = event.getJumpUrl();
+//
+//        String message = user.getAsTag() + " reacted to a message with "
+//                + emoji + " in the "
+//                + channelMention
+//                + " channel!";
+//
+//
+//        // sends bot messages to default channel
+//        /**
+//        event.getGuild()
+//                .getDefaultChannel()
+//                .asStandardGuildMessageChannel()
+//                .sendMessage(message)
+//                .queue();
+//         **/
+//
+//        // sends bot message to a channel with the name "bot-testing"
+//        final String botChannel = "bot-testing";
+//        TextChannel textChannel = event.getGuild()
+//                .getTextChannelsByName(botChannel, true).get(0);
+//
+//        textChannel.sendMessage(
+//                message + " " + jumpLink
+//        ).queue();
+//    }
+
     @Override
-    public void onMessageReactionAdd(MessageReactionAddEvent event) {
-        User user = event.getUser();
+    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+        super.onGuildMemberJoin(event);
+        final String name = event.getUser()
+                .getName();
 
-        String emoji = event.getReaction()
-                .getEmoji()
-                .getAsReactionCode();
+        final String avatar = event.getUser()
+                .getEffectiveAvatarUrl();
 
-        String channelMention = event.getChannel()
-                .getAsMention();
+        final String serverName = event.getGuild()
+                .getName();
 
-        String jummpLink = event.getJumpUrl();
+        System.out.printf(
+                "%s: %s",
+                name,
+                avatar
+        );
 
-        String message = user.getAsTag() + " reacted to a message with "
-                + emoji + " in the "
-                + channelMention
-                + " channel!";
+        String message = "Welcome to the " + serverName
+                + " discord server, "
+                + name
+                + "!";
 
-
-        // sends bot messages to default channel
         event.getGuild()
                 .getDefaultChannel()
                 .asStandardGuildMessageChannel()
                 .sendMessage(message)
                 .queue();
-
-        // sends bot message to a channel with the name "bot-testing"
-        final String botChannel = "bot-testing";
-        TextChannel textChannel = event.getGuild()
-                .getTextChannelsByName(botChannel, true).get(0);
-
-        textChannel.sendMessage(
-                message + " " + jummpLink
-        ).queue();
-    }
-
-    @Override
-    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-        super.onGuildMemberJoin(event);
-        String avatar = event.getUser()
-                .getEffectiveAvatarUrl();
-        System.out.println(avatar);
     }
 }
