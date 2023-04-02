@@ -2,23 +2,24 @@ package com.pafable.javaDiscordBot.listeners;
 
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class EventListener extends ListenerAdapter {
     // when a user sends a specific message this will respond
-//    @Override
-//    public void onMessageReceived(MessageReceivedEvent event) {
-//        String message = event.getMessage()
-//                .getContentRaw();
-//
-//        if (message.contains("ping")) {
-//            event.getChannel()
-//                    .sendMessage("pong")
-//                    .queue();
-//        }
-//    }
+    @Override
+    public void onMessageReceived(MessageReceivedEvent event) {
+        String message = event.getMessage()
+                .getContentRaw();
+
+        if (message.contains("ping") || message.contains("PING")) {
+            event.getChannel()
+                    .sendMessage("pong")
+                    .queue();
+        }
+    }
 
     // when a user reacts with any emoji the bot will send a message
     @Override
@@ -55,5 +56,13 @@ public class EventListener extends ListenerAdapter {
         textChannel.sendMessage(
                 message + " " + jummpLink
         ).queue();
+    }
+
+    @Override
+    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+        super.onGuildMemberJoin(event);
+        String avatar = event.getUser()
+                .getEffectiveAvatarUrl();
+        System.out.println(avatar);
     }
 }
