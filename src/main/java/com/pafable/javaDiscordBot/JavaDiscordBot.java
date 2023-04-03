@@ -1,6 +1,7 @@
 package com.pafable.javaDiscordBot;
 
 import com.pafable.javaDiscordBot.builders.EventBuilder;
+import com.pafable.javaDiscordBot.commands.CommandManager;
 import com.pafable.javaDiscordBot.listeners.EventListener;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -20,7 +21,10 @@ public class JavaDiscordBot {
         );
 
         // register new listeners
-        shardManager.addEventListener(new EventListener());
+        shardManager.addEventListener(
+                new EventListener(),
+                new CommandManager()
+        );
     }
 
     public ShardManager getShardManager() {
