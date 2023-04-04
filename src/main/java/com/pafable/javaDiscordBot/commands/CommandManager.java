@@ -1,12 +1,17 @@
 package com.pafable.javaDiscordBot.commands;
 
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,8 +43,9 @@ public class CommandManager extends ListenerAdapter {
                             + userTag
                             + "**!"
                     ).queue();
+        }
 
-        } else if (command.equals("roles")) {
+        if (command.equals("roles")) {
             event.deferReply()
                     .queue();
 
@@ -52,6 +58,30 @@ public class CommandManager extends ListenerAdapter {
             event.getHook()
                     .sendMessage(response)
                     .queue();
+        }
+
+        if (command.equals("say")) {
+            OptionMapping messageOption = event.getOption("message");
+
+            if (messageOption != null) {
+                String message = messageOption.getAsString();
+
+                MessageChannel channel;
+                OptionMapping chnlOpt = event.getOption("channel");
+
+                if (chnlOpt != null) {
+                    channel = chnlOpt.getAsChannel().asGuildMessageChannel();
+                } else {
+                    channel = event.getChannel();
+                }
+
+                channel.sendMessage(message)
+                        .queue();
+
+                event.reply("You message was sent, hopefully it didn't suck!")
+                        .setEphemeral(true)
+                        .queue();
+            }
         }
     }
 
@@ -66,6 +96,36 @@ public class CommandManager extends ListenerAdapter {
                 Commands.slash(
                     "roles",
                     "Display all roles"
+                )
+        );
+
+        // command /say <message> [channel (optional)]
+        OptionData messageOption = new OptionData(
+                OptionType.STRING,
+                "message",
+                "The message you want the bot to say",
+                true
+        );
+
+        OptionData channelOption = new OptionData(
+                OptionType.CHANNEL,
+                "channel",
+                "Channel to send message to",
+                false
+        ).setChannelTypes(
+                ChannelType.GUILD_PRIVATE_THREAD,
+                ChannelType.GUILD_PUBLIC_THREAD,
+                ChannelType.NEWS,
+                ChannelType.TEXT
+        );
+
+        commandData.add(
+                Commands.slash(
+                        "say",
+                        "Make the bot say a message"
+                ).addOptions(
+                        messageOption,
+                        channelOption
                 )
         );
 
