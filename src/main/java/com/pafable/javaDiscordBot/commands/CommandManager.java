@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class CommandManager extends ListenerAdapter {
 
@@ -32,7 +33,8 @@ public class CommandManager extends ListenerAdapter {
 
         String command = event.getName();
         if (command.equals("welcome")) {
-            String userTag = event.getUser().getAsTag();
+            String userTag = event.getUser()
+                    .getAsTag();
 
             event.deferReply()
                     .queue();
@@ -70,7 +72,8 @@ public class CommandManager extends ListenerAdapter {
                 OptionMapping chnlOpt = event.getOption("channel");
 
                 if (chnlOpt != null) {
-                    channel = chnlOpt.getAsChannel().asGuildMessageChannel();
+                    channel = chnlOpt.getAsChannel()
+                            .asGuildMessageChannel();
                 } else {
                     channel = event.getChannel();
                 }
@@ -82,6 +85,39 @@ public class CommandManager extends ListenerAdapter {
                         .setEphemeral(true)
                         .queue();
             }
+        }
+
+        if (command.equals("roll")) {
+            int sides;
+            int result;
+            OptionMapping sidesOption = event.getOption("sides");
+            String userTag = event.getUser()
+                    .getAsTag();
+
+            event.deferReply()
+                    .queue();
+
+            Random random = new Random();
+
+            if (sidesOption != null) {
+                sides = sidesOption.getAsInt();
+            } else {
+                sides = 6;
+            }
+
+            result = random.nextInt(sides) + 1;
+
+            event.getHook()
+                    .sendMessage(
+                                    "**"
+                                    + userTag
+                                    + "**"
+                                    + " rolled a "
+                                    + sides
+                                    + " sided die and got *"
+                                    + result
+                                    + "*"
+                    ).queue();
         }
     }
 
@@ -129,6 +165,23 @@ public class CommandManager extends ListenerAdapter {
                 )
         );
 
+        // command /roll [number of sides on a dice (optional)]
+        // if number of sides is not specified then it defaults to 6
+        OptionData diceSidesOption = new OptionData(
+                OptionType.INTEGER,
+                "sides",
+                "number of sides",
+                false
+        );
+
+        commandData.add(
+                Commands.slash(
+                        "roll",
+                        "Dice roll."
+                ).addOptions(diceSidesOption)
+        );
+
+        // add all the commands
         event.getGuild()
                 .updateCommands()
                 .addCommands(commandData)
