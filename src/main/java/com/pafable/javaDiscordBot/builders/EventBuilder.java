@@ -19,7 +19,7 @@ public class EventBuilder {
         builder.setActivity(
                 Activity.of(
                         Activity.ActivityType.LISTENING,
-                        "to the Emperor of Mankind!"
+                        "to the Emperor of Man!"
                 )
         );
 
