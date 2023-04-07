@@ -39,6 +39,11 @@ public class CommandManager extends ListenerAdapter {
                 command,
                 event
         );
+
+        Motto.createCommand(
+                command,
+                event
+        );
     }
 
     // Guild command -- instantly updated (max 100)
@@ -50,6 +55,7 @@ public class CommandManager extends ListenerAdapter {
         commandDataList.add(Roles.commandData);
         commandDataList.add(Roll.commandData);
         commandDataList.add(Say.commandData);
+        commandDataList.add(Motto.commandData);
 
         // add all the commands
         event.getGuild()
