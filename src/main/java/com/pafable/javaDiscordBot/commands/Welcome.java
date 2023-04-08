@@ -17,7 +17,7 @@ public class Welcome {
                     .sendMessage(
                             "Welcome to the server, **"
                                     + userTag
-                                    + "**!"
+                                    + "** and FOR THE EMPEROR!"
                     ).queue();
         }
     }
