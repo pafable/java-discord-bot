@@ -20,11 +20,11 @@ docker run \
 ```
 
 ## Discord Slash Commands
-| Command  |                               Description                               |
-|:---------|:-----------------------------------------------------------------------:|
-| /caution |                    Bot will say a cautionary message                    | 
-| /motto   |                  Bot recite the Adeptus Custodes motto                  |
-| /roles   |                  Bot will display roles on the server                   | 
-| /roll    | Bot will roll a die. You have the option to specify the number of sides |
-| /say     |             Bot will say whatever message you type in after             |
-| /welcome |                        Bot will welcome a user                          |
+| Command  | Description                                                              |
+|:---------|:-------------------------------------------------------------------------|
+| /caution | Bot will say a cautionary message                                        | 
+| /motto   | Bot recite the Adeptus Custodes motto                                    |
+| /roles   | Bot will display roles on the server                                     | 
+| /roll    | Bot will roll a die. You have the option to specify the number of sides  |
+| /say     | Bot will say whatever message you type in after                          |
+| /welcome | Bot will welcome a user                                                  |
