@@ -6,7 +6,7 @@ Create an environment variable with the name `DISCORD_BOT_TOKEN`
 ## Build Container
 ```shell
 docker build \
-  --tag java-discord-bot:<VERSION> \
+  --tag java-discord-bot:1.0.0 \
   .
 ```
 
@@ -16,5 +16,15 @@ docker run \
   --detach \
   --name java_discord_bot \
   --env DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN} \
-  java-discord-bot:<VERSION>
+  java-discord-bot:1.0.0
 ```
+
+## Discord Slash Commands
+| Command  |                               Description                               |
+|:---------|:-----------------------------------------------------------------------:|
+| /caution |                    Bot will say a cautionary message                    | 
+| /motto   |                  Bot recite the Adeptus Custodes motto                  |
+| /roles   |                  Bot will display roles on the server                   | 
+| /roll    | Bot will roll a die. You have the option to specify the number of sides |
+| /say     |             Bot will say whatever message you type in after             |
+| /welcome |                        Bot will welcome a user                          |
