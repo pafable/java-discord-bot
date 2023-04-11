@@ -3,6 +3,18 @@
 ## Setup
 Create an environment variable with the name `DISCORD_BOT_TOKEN`
 
+This project was tested on Java 17
+
+## Build a Jar File
+```shell
+./gradlew shadowJar
+```
+
+## Run the Jar File
+```shell
+java -jar java-discord-bot-1.0.0.jar
+```
+
 ## Build Container
 ```shell
 docker build \
