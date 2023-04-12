@@ -1,4 +1,7 @@
 APPNAME = 'java-discord-bot'
+DOCKER = $(shell which docker)
+DOCKER-COMPOSE = $(shell which docker-compose)
+RM = $(shell which rm)
 
 .PHONY: build build_container clean
 
@@ -6,18 +9,14 @@ build:
 	./gradlew shadowJar
 
 build_container: build
-	docker build \
-      --tag $(APPNAME) \
-      .
+	$(DOCKER) build \
+		--tag $(APPNAME) \
+      	.
 
 run: build_container
-	docker run \
-      --detach \
-      --name $(APPNAME) \
-      --env DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN} \
-      $(APPNAME)
+	$(DOCKER-COMPOSE) up --detach
 
 clean:
-	rm -r build/libs/java-discord-bot-*.jar
-	docker rm -f $(APPNAME)
-	docker rmi $(APPNAME)
+	$(DOCKER-COMPOSE) down
+	$(DOCKER) rmi $(APPNAME)
+	$(RM) -r build/libs/java-discord-bot-*.jar

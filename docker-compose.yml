@@ -1,0 +1,9 @@
+version: "3.5"
+
+services:
+  discord_bot:
+    container_name: java-discord-bot
+    image: java-discord-bot:latest
+    restart: unless-stopped
+    environment:
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}

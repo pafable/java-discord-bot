@@ -3,11 +3,13 @@
 ## Setup
 Create an environment variable with the name `DISCORD_BOT_TOKEN`
 
-This project was tested on Java 17
+This project was built on Java 17 using [Amazon Corretto 17 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html).
+
+The bot is designed to run on a docker container.
 
 ## Build a Jar File
 ```shell
-./gradlew shadowJar
+make build
 ```
 
 ## Run the Jar File
@@ -15,20 +17,14 @@ This project was tested on Java 17
 java -jar java-discord-bot-1.0.0.jar
 ```
 
-## Build Container
+## Build and Run a Container
 ```shell
-docker build \
-  --tag java-discord-bot:1.0.0 \
-  .
+make run
 ```
 
-## Run Container
+## Destroying the Container and Removing Build Artifacts
 ```shell
-docker run \
-  --detach \
-  --name java_discord_bot \
-  --env DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN} \
-  java-discord-bot:1.0.0
+make clean
 ```
 
 ## Discord Slash Commands
