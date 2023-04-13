@@ -11,6 +11,7 @@ The bot is designed to run on a docker container.
 ```shell
 make build
 ```
+Jar file will be located in `build/libs` directory.
 
 ## Run the Jar File
 ```shell
