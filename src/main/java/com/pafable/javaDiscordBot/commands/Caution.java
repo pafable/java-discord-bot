@@ -16,7 +16,7 @@ public class Caution {
             channel.sendMessage(caution)
                     .submit();
 
-            event.reply("Load you bolt gun")
+            event.reply("Load your bolt gun")
                     .setEphemeral(true)
                     .queue();
         }
